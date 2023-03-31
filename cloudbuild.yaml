@@ -51,7 +51,7 @@ substitutions:
     
 
     # GCR CONTAINER IMAGE REPOSITORY
-    _GCR_REPOSITORY_URL: EXAMPLE URL
+    _GCR_REPOSITORY_URL: us-central1-docker.pkg.dev/pingdirectory-358917/likeminds-docker-repository
     
 
 
