@@ -6,7 +6,7 @@ steps:
 
 #2. Pull the Desired PingDirectory Docker image from Dockerhub 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['pull','-t','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}','.']
+  args: ['pull','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
 
 #3. Pull the Desired PingDirectory Docker image from Dockerhub and retags the image using the server profile tag number
 - name: 'gcr.io/cloud-builders/docker'
