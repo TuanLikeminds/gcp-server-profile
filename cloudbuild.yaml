@@ -1,6 +1,7 @@
 steps:
 #1. First Clone the Github Repo Containing the Server Profile change made aaah
 - name: 'gcr.io/cloud-builders/git'
+  echo: "Pulling the Server Profile from github"
   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
   
 
