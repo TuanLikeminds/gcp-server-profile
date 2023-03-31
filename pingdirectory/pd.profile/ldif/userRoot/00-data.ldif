@@ -1,0 +1,69 @@
+dn: ${USER_BASE_DN}
+objectClass: top
+objectClass: ${BASE_CLASS}
+${BASE_ATTRIBUTE}: ${BASE_VALUE}
+aci: (targetattr!="userPassword")(version 3.0; acl "Allow anonymous read access for anyone"; allow (read,search,compare) userdn="ldap:///anyone";)
+aci: (targetattr="*")(version 3.0; acl "Allow users to update their own entries"; allow (write) userdn="ldap:///self";)
+
+dn: o=unix,${USER_BASE_DN}
+o: unix
+objectClass: organization
+objectClass: top
+
+dn: o=tm,${USER_BASE_DN}
+o: tm
+objectClass: organization
+objectClass: top
+
+dn: ou=people,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=serviceAccounts,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: serviceAccounts
+
+dn: ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=tuan,ou=serviceAccounts,${USER_BASE_DN}
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+uid: tuan
+sn: Ousman
+cn: tuan
+userPassword: 2FederateM0re
+
+dn: uid=praba,ou=serviceAccounts,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: praba
+cn: Prabhakaran
+sn: J
+userPassword: 2FederateM0re
+
+dn: uid=vikram,ou=serviceAccounts,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: vikram
+cn: Vikram
+sn: Chandrasekaran
+userPassword: 2FederateM0re
+
+dn: cn=delegatedadmin,ou=Groups,${USER_BASE_DN}
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: delegatedadmin
+uniqueMember: uid=praba,ou=serviceAccounts,dc=example,dc=com
+uniqueMember: uid=tuan,ou=serviceAccounts,dc=example,dc=com
+uniqueMember: uid=vikram,ou=serviceAccounts,dc=example,dc=com

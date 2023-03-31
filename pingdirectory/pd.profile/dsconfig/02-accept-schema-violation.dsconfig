@@ -1,0 +1,2 @@
+dsconfig set-global-configuration-prop \
+    --set single-structural-objectclass-behavior:accept
