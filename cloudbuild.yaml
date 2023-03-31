@@ -20,7 +20,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   
-# #Update the container image using kubectl set
+# #Update the container image using kubectl set newww
 # - name: 'gcr.io/cloud-builders/kubectl'
 #   args:
 #   - 'set'
@@ -47,7 +47,7 @@ substitutions:
 
 
     # DESIRED PingDirectory Docker Image Configurations
-    _PINGDIRECTORY_DOCKER_IMAGE_TAG: latest
+    _PINGDIRECTORY_DOCKER_IMAGE_TAG: 9.2.0.0-alpine_3.17.2-al11-edge
     
 
     # GCR CONTAINER IMAGE REPOSITORY
@@ -57,7 +57,7 @@ substitutions:
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/cicd-service
-    _SERVER_PROFILE_RELEASE_TAG: V1.0.0
+    _SERVER_PROFILE_RELEASE_TAG: V1.0.1
     
 options:
     substitution_option: 'ALLOW_LOOSE'
