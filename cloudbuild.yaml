@@ -1,8 +1,9 @@
 steps:
-#First Clone from Google Cloud Source Repository  hHhHhH
+#First Clone the Github Repo Containing the Server Profile
 - name: 'gcr.io/cloud-builders/git'
   #args: ['clone','https://source.developers.google.com/p/${_PROJECT}/r/${_REPO_NAME}']
-  args: ['clone','https://github.com/TuanLikeminds/cicd-service']
+  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','&&','ls']
+  
 
 #Build the image 
 - name: 'gcr.io/cloud-builders/docker'
@@ -29,13 +30,16 @@ substitutions:
     _ZONE: asia-south1-a
     _GKE_CLUSTER: learn-gcp-with-mahesh-gke-cluster
     
-    #Repository Specific configuration. DevOps can change this settings
-    _DEPLOYMENTNAME: hello-world-service
-    _CONTAINERNAME: hello-world-service    
-    _REPO_NAME: cicd-service
+    # #Repository Specific configuration. DevOps can change this settings
+    # _DEPLOYMENTNAME: hello-world-service
+    # _CONTAINERNAME: hello-world-service    
+    # _REPO_NAME: cicd-service
     
     # Developers ONLY change
     _VERSION: v1.0
+
+    # ServerProfile Repository Specific Variables
+    _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/cicd-service
     
 options:
     substitution_option: 'ALLOW_LOOSE'
