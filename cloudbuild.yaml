@@ -1,5 +1,5 @@
 steps:
-#First Clone the Github Repo Containing the Server Profile
+#First Clone the Github Repo Containing the Server Profile change made
 - name: 'gcr.io/cloud-builders/git'
   #args: ['clone','https://source.developers.google.com/p/${_PROJECT}/r/${_REPO_NAME}']
   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','&&','ls']
