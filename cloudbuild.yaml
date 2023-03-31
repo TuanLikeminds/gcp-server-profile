@@ -1,28 +1,35 @@
 steps:
-#First Clone the Github Repo Containing the Server Profile change made aaah
+#1. First Clone the Github Repo Containing the Server Profile change made aaah
 - name: 'gcr.io/cloud-builders/git'
-  #args: ['clone','https://source.developers.google.com/p/${_PROJECT}/r/${_REPO_NAME}']
   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
   
 
-#Build the image 
+#2. Pull the Desired PingDirectory Docker image from Dockerhub 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}','.']
+  args: ['pull','-t','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}','.']
+
+#3. Pull the Desired PingDirectory Docker image from Dockerhub and retags the image using the server profile tag number
+- name: 'gcr.io/cloud-builders/docker'
+  # args: ['pull','-t','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}','.']
+  args:
+  - 'tag'
+  - 'pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}'
+  - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
 
 #Push the image  
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
+  args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   
-#Update the container image using kubectl set
-- name: 'gcr.io/cloud-builders/kubectl'
-  args:
-  - 'set'
-  - 'image'
-  - 'deployment/${_DEPLOYMENTNAME}'
-  - '${_CONTAINERNAME}=gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}'
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
+# #Update the container image using kubectl set
+# - name: 'gcr.io/cloud-builders/kubectl'
+#   args:
+#   - 'set'
+#   - 'image'
+#   - 'deployment/${_DEPLOYMENTNAME}'
+#   - '${_CONTAINERNAME}=gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}'
+#   env:
+#   - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
   
 substitutions:
     #GCP Specific configuration. Please DON'T change anything
@@ -38,8 +45,19 @@ substitutions:
     # Developers ONLY change
     _VERSION: v1.0
 
+
+    # DESIRED PingDirectory Docker Image Configurations
+    _PINGDIRECTORY_DOCKER_IMAGE_TAG: latest
+    
+
+    # GCR CONTAINER IMAGE REPOSITORY
+    _GCR_REPOSITORY_URL: EXAMPLE URL
+    
+
+
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/cicd-service
+    _SERVER_PROFILE_RELEASE_TAG: V1.0.0
     
 options:
     substitution_option: 'ALLOW_LOOSE'
