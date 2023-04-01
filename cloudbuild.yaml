@@ -1,17 +1,18 @@
 steps:
 #1. First Clone the Github Repo Containing the Server Profile change made aaah
 - name: 'gcr.io/cloud-builders/git'
-  echo: "Pulling the Server Profile from github"
+  echo: "Step 1: Pulling the Server Profile from github"
   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
   
 
 #2. Pull the Desired PingDirectory Docker image from Dockerhub 
 - name: 'gcr.io/cloud-builders/docker'
+  echo: "Step 2: Pulling the Desired PingDirectory Docker image from Dockerhub"
   args: ['pull','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
 
 #3. Pull the Desired PingDirectory Docker image from Dockerhub and retags the image using the server profile tag number
 - name: 'gcr.io/cloud-builders/docker'
-  # args: ['pull','-t','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}','.']
+  echo: "Step 3: Retagging the Desired PingDirectory Docker image with Server Profile tag"
   args:
   - 'tag'
   - 'pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}'
@@ -19,6 +20,7 @@ steps:
 
 #Push the image  
 - name: 'gcr.io/cloud-builders/docker'
+  echo: "Step 4: Pushing the image to GCR"
   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   
 # #Update the container image using kubectl set newww
@@ -62,4 +64,3 @@ substitutions:
     
 options:
     substitution_option: 'ALLOW_LOOSE'
-
