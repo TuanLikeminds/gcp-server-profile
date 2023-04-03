@@ -21,6 +21,4 @@ steps:
   volumes:
   - name: cloud-build-ping
     path: /shared
-  volumeMounts:
-  - name: cloud-build-ping
-    mountPath: /shared
+  
