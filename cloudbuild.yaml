@@ -28,6 +28,17 @@ steps:
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
+
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['cp /workspace/gcp-server-profile/pingdirectory/* pd-temp-container:/opt/staging']
+
+
 #3. Pull the Server Profile
 
 # - name: 'gcr.io/cloud-builders/git'
