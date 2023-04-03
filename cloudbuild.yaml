@@ -24,6 +24,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: 
   - 'run'
+  - '-d'
   - '--name'
   - 'pingdirectory-temp-container'
   - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
