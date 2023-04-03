@@ -21,25 +21,43 @@ steps:
   - 'pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}'
   - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
 
-#Push the image  
 - name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'echo'
-  args: ['Pushing the Docker image to GCR']
-  
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
+  args: 
+  - 'run'
+  - 'pingdirectory-temp-container'
+  - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
 
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
       - '-c'
       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+      - '&&'
+      - 'docker'
+      - 'cp'
+      - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
+      - 'pingdirectory-temp-container:/opt/staging/'
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: 
-  - 'cp'
-  - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
-  - 'pd-temp-container:/opt/staging/'
+
+# #Push the image  
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'echo'
+#   args: ['Pushing the Docker image to GCR']
+  
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
+
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'bash'
+#   args:
+#       - '-c'
+#       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: 
+#   - 'cp'
+#   - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
+#   - 'pd-temp-container:/opt/staging/'
 
 
 #3. Pull the Server Profile
