@@ -26,8 +26,8 @@ steps:
   entrypoint: 'echo'
   args: ['Pulling the Server Profile from github']
   
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace']
+# - name: 'gcr.io/cloud-builders/git'
+#   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace']
   # volumes:
   #     - name: 'pd-storage-volume'
   #       path: '/workspace'
