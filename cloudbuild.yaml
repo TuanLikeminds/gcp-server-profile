@@ -38,7 +38,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: 
   - 'cp'
-  - '/workspace/gcp-server-profile/pingdirectory/*'
+  - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
   - 'pd-temp-container:/opt/staging/'
 
 
