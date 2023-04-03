@@ -13,6 +13,12 @@ steps:
   - name: cloud-build-ping
     path: /shared
 
+- name: 'gcr.io/cloud-builders/git'
+  args: ['ls','/shared']
+  volumes:
+  - name: cloud-build-ping
+    path: /shared
+
 
 #2. Pull the Desired PingDirectory Docker image from Dockerhub 
 - name: 'gcr.io/cloud-builders/docker'
