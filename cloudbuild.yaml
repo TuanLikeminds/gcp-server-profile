@@ -52,7 +52,19 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['cp', './pingdirectory/*', 'pd-temp-container:/path/to/copy/to/']
+  args: ['cp', '-r', './pingdirectory/*', 'pd-temp-container:/opt/staging']
+  volumes:
+      - name: my-volume
+        path: /workspace
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}-new']
+  volumes:
+      - name: my-volume
+        path: /workspace
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['stop', 'pd-temp-container']
   volumes:
       - name: my-volume
         path: /workspace
