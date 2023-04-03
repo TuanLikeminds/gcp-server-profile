@@ -27,7 +27,7 @@ steps:
   args: ['Pulling the Server Profile from github']
   
 - name: 'gcr.io/cloud-builders/git'
-  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
+  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace/gcp-server-profile']
  
 
 #3. Runs a Container using the new tagged image
@@ -48,7 +48,7 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['cp','./gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
+  args: ['cp','/workspace/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
   #hello
   
 
