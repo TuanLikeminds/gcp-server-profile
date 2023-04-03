@@ -52,7 +52,7 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['cp', '-r', './pingdirectory/*', 'pd-temp-container:/opt/staging']
+  args: ['cp', './pingdirectory/*', 'pd-temp-container:/opt/staging']
   volumes:
       - name: my-volume
         path: /profile-volume
