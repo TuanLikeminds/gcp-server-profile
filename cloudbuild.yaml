@@ -26,10 +26,21 @@ steps:
   entrypoint: 'echo'
   args: ['Pulling the Server Profile from github']
   
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace/gcp-server-profile']
+# - name: 'gcr.io/cloud-builders/git'
+#   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace/gcp-server-profile']
  
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - 'apt-get update && apt-get install -y git'
 
+  # Clone the Git repository
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
 #3. Runs a Container using the new tagged image
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'echo'
