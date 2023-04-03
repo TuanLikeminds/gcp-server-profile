@@ -27,6 +27,28 @@ steps:
   - 'pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}'
   - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
 
+#3. Runs a Container using the new tagged image
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'echo'
+  args: ['Running temporary PD container to copy the server profile into']
+
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: '/bin/sh'
+  args:
+  - 'run'
+  - '-d' 
+  - '--name=${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+  - '&&'  
+  - 'sleep'
+  - '30'
+
+#3. Copying the Server Profile into the Pingdirectoy container
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'cp'
+  - '${_SERVER_PROFILE_GIT_REPOSITORY}/pingdirectory'
+  - '${_PINGDIRECTORY_CONTAINER_NAME}:/opt/serverprofile/'
+
 #Push the image  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'echo'
