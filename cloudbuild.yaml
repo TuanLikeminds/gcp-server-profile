@@ -26,8 +26,11 @@ steps:
   entrypoint: 'echo'
   args: ['Pulling the Server Profile from github']
   
-# - name: 'gcr.io/cloud-builders/git'
-#   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace/gcp-server-profile']
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace']
+  volumes:
+      - name: 'pd-storage-volume'
+        path: '/workspace'
  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
@@ -36,11 +39,13 @@ steps:
       - 'apt-get update && apt-get install -y git'
 
   # Clone the Git repository
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-      - '-c'
-      - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'bash'
+#   args:
+#       - '-c'
+#       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+#       - '&&'
+  
 #3. Runs a Container using the new tagged image
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'echo'
@@ -60,6 +65,9 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['cp','/workspace/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
+  volumes:
+      - name: 'pd-storage-volume'
+        path: '/workspace'
   #hello
   
 
@@ -121,3 +129,5 @@ substitutions:
 
 options:
     substitution_option: 'ALLOW_LOOSE'
+volumes:
+- name: 'pd-storage-volume'
