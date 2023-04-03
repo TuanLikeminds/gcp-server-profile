@@ -24,3 +24,37 @@ steps:
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
+
+
+
+
+substitutions:
+    #GCP Specific configuration. Please DON'T change anything
+    _PROJECT: learn-gcp-with-mahesh
+    _ZONE: asia-south1-a
+    _GKE_CLUSTER: learn-gcp-with-mahesh-gke-cluster
+    
+    # #Repository Specific configuration. DevOps can change this settings
+    # _DEPLOYMENTNAME: hello-world-service
+    # _CONTAINERNAME: hello-world-service    
+    # _REPO_NAME: cicd-service
+    
+    # Developers ONLY change
+    _VERSION: v1.0
+
+    
+    # DESIRED PingDirectory Docker Image Configurations
+    _PINGDIRECTORY_DOCKER_IMAGE_TAG: 9.2.0.0-alpine_3.17.2-al11-edge
+    
+
+    # GCR CONTAINER IMAGE REPOSITORY
+    _GCR_REPOSITORY_URL: us-central1-docker.pkg.dev/pingdirectory-358917/likeminds-docker-repository
+    
+
+
+    # ServerProfile Repository Specific Variables
+    _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
+    _SERVER_PROFILE_RELEASE_TAG: V1.0.6
+
+options:
+    substitution_option: 'ALLOW_LOOSE'
