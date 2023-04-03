@@ -32,6 +32,18 @@ steps:
   - name: cloud-build-ping
     path: /shared
 
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['cp','/shared/gcp-server-profile/pingdirectory/', 'pd-temp-container:/opt/staging/']
+  volumes:
+  - name: cloud-build-ping
+    path: /shared
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}--neww']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}--neww']
+
 
 
 
