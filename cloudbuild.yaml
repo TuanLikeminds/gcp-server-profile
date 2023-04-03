@@ -14,7 +14,7 @@ steps:
     path: /shared
 
 - name: 'gcr.io/cloud-builders/git'
-  args: ['ls','/shared']
+  entrypoint: 'ls'
   volumes:
   - name: cloud-build-ping
     path: /shared
