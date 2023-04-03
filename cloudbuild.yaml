@@ -26,11 +26,21 @@ steps:
   entrypoint: 'echo'
   args: ['Pulling the Server Profile from github']
   
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
-  volumes:
-      - name: my-volume
-        path: /profile-volume
+# - name: 'gcr.io/cloud-builders/git'
+#   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
+#   volumes:
+#       - name: my-volume
+#         path: /profile-volume
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - 'apt-get update && apt-get install -y git'
+      - '&&'
+      - 'git'
+      - 'clone'
+      - '${_SERVER_PROFILE_GIT_REPOSITORY}'
+
 
 #3. Runs a Container using the new tagged image
 - name: 'gcr.io/cloud-builders/docker'
@@ -39,9 +49,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['run', '-d', '--name', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
-  volumes:
-      - name: my-volume
-        path: /profile-volume
+  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'echo'
   args: ['Temporary Container is Running']
@@ -52,22 +60,16 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['cp', './.git/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
-  volumes:
-      - name: my-volume
-        path: /profile-volume
+  args: ['cp', './gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
+  
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}-new']
-  volumes:
-      - name: my-volume
-        path: /profile-volume
+  
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['stop', 'pd-temp-container']
-  volumes:
-      - name: my-volume
-        path: /profile-volume
+  
 
 
 #Push the image  
