@@ -20,11 +20,19 @@ steps:
   - 'tag'
   - 'pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}'
   - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+
+#Push the image  
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'echo'
+  args: ['Pushing the Docker image to GCR']
+  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
 #3. Pull the Server Profile
 
-- name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'echo'
-  args: ['Pulling the Server Profile from github']
+# - name: 'gcr.io/cloud-builders/git'
+#   entrypoint: 'echo'
+#   args: ['Pulling the Server Profile from github']
   
 # - name: 'gcr.io/cloud-builders/git'
 #   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace']
@@ -39,25 +47,25 @@ steps:
 #       - 'apt-get update && apt-get install -y git'
 
  # Clone the Git repository
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-      - '-c'
-      - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
-      - '&&'
-      - 'echo Running temporary PD container to copy the server profile into'
-      - '&&'
-      - 'docker run -d --name pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
-      - '&&'
-      - 'docker cp /workspace/gcp-server-profile/pingdirectory/* pd-temp-container:/opt/staging'
-      - '&&'
-      - 'echo Committing Changes to the Docker Image'
-      - '&&'
-      - 'docker commit pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
-      - '&&'
-      - 'echo Pushing ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG} to Artifact Registry'
-      - '&&'
-      - 'docker push ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'bash'
+#   args:
+#       - '-c'
+#       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+#       - '&&'
+#       - 'echo Running temporary PD container to copy the server profile into'
+#       - '&&'
+#       - 'docker run -d --name pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+#       - '&&'
+#       - 'docker cp /workspace/gcp-server-profile/pingdirectory/* pd-temp-container:/opt/staging'
+#       - '&&'
+#       - 'echo Committing Changes to the Docker Image'
+#       - '&&'
+#       - 'docker commit pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+#       - '&&'
+#       - 'echo Pushing ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG} to Artifact Registry'
+#       - '&&'
+#       - 'docker push ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
 
   
 #3. Runs a Container using the new tagged image
