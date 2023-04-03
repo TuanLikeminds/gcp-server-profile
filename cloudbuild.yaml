@@ -32,19 +32,19 @@ steps:
       - name: 'pd-storage-volume'
         path: '/workspace'
  
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-      - '-c'
-      - 'apt-get update && apt-get install -y git'
-
-  # Clone the Git repository
 # - name: 'gcr.io/cloud-builders/docker'
 #   entrypoint: 'bash'
 #   args:
 #       - '-c'
-#       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
-#       - '&&'
+#       - 'apt-get update && apt-get install -y git'
+
+ # Clone the Git repository
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+      - '&&'
   
 #3. Runs a Container using the new tagged image
 - name: 'gcr.io/cloud-builders/docker'
@@ -132,6 +132,3 @@ substitutions:
 options:
     substitution_option: 'ALLOW_LOOSE'
 
-volumes:
-  - name: 'my-volume'
-    driver: 'local'
