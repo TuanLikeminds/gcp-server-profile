@@ -8,10 +8,10 @@ steps:
 
 #3. Pull the Server Profile
 - name: 'gcr.io/cloud-builders/git'
-  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/tmp']
+  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/shared']
   volumes:
   - name: cloud-build-ping
-    path: /tmp
+    path: /shared
 
 
 #2. Pull the Desired PingDirectory Docker image from Dockerhub 
@@ -20,7 +20,7 @@ steps:
   args: ['Pulling the PingDirectory Docker image from Dockerhub']
   volumes:
   - name: cloud-build-ping
-    path: /tmp
+    path: /shared
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
