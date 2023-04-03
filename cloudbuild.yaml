@@ -26,21 +26,9 @@ steps:
   entrypoint: 'echo'
   args: ['Pulling the Server Profile from github']
   
-# - name: 'gcr.io/cloud-builders/git'
-#   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
-#   volumes:
-#       - name: my-volume
-#         path: /profile-volume
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-      - '-c'
-      - 'apt-get update && apt-get install -y git'
-      - '&&'
-      - 'git'
-      - 'clone'
-      - '${_SERVER_PROFILE_GIT_REPOSITORY}'
-
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}']
+ 
 
 #3. Runs a Container using the new tagged image
 - name: 'gcr.io/cloud-builders/docker'
@@ -60,8 +48,7 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  # args: ['cp', './gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
-  args: ['ls','-lrt']
+  args: ['cp','./.git/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
   #hello
   
 
