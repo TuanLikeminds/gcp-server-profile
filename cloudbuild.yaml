@@ -33,7 +33,7 @@ steps:
   args: ['Running temporary PD container to copy the server profile into']
 
 - name: 'gcr.io/cloud-builders/docker'
-  entrypoint: '/bin/sh'
+  
   args:
   - 'run'
   - '-d' 
