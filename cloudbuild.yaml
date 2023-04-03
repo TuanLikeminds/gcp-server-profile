@@ -45,46 +45,58 @@ steps:
       - '-c'
       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
       - '&&'
+      - 'echo Running temporary PD container to copy the server profile into'
+      - '&&'
+      - 'docker run -d --name pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+      - '&&'
+      - 'docker cp /workspace/gcp-server-profile/pingdirectory/* pd-temp-container:/opt/staging'
+      - '&&'
+      - 'echo Committing Changes to the Docker Image'
+      - '&&'
+      - 'docker commit pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+      - '&&'
+      - 'echo Pushing ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG} to Artifact Registry'
+      - '&&'
+      - 'docker push ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
+
   
 #3. Runs a Container using the new tagged image
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'echo'
-  args: ['Running temporary PD container to copy the server profile into']
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'echo'
+#   args: ['Running temporary PD container to copy the server profile into']
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['run', '-d', '--name', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'echo'
-  args: ['Temporary Container is Running']
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'echo'
+#   args: ['Temporary Container is Running']
 
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'echo'
-  args: ['Copying Server Profile into the PD Docker Container']
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'echo'
+#   args: ['Copying Server Profile into the PD Docker Container']
 
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['cp','/workspace/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['cp','/workspace/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
   
   #hello
   
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}-new']
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['stop', 'pd-temp-container']
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['stop', 'pd-temp-container']
   
 
 
 #Push the image  
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'echo'
-  args: ['Pushing the Docker image to GCR']
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'echo'
+#   args: ['Pushing the Docker image to GCR']
   
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   
 # #Update the container image using kubectl set newww
 # - name: 'gcr.io/cloud-builders/kubectl'
