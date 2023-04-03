@@ -22,7 +22,9 @@ steps:
   - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
 
 - name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'echo'
   args: 
+  - 'docker'
   - 'run'
   - '-d'
   - '--name'
@@ -30,17 +32,26 @@ steps:
   - '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}'
   - 'sleep'
   - 'infinity'
+  - '&&'
+  - '-c'
+  - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+  - '&&'
+  - 'docker'
+  - 'cp'
+  - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
+  - 'pingdirectory-temp-container:/opt/staging/'
+  
 
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-      - '-c'
-      - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
-      - '&&'
-      - 'docker'
-      - 'cp'
-      - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
-      - 'pingdirectory-temp-container:/opt/staging/'
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'bash'
+#   args:
+#       - '-c'
+#       - 'git clone ${_SERVER_PROFILE_GIT_REPOSITORY} /workspace/gcp-server-profile'
+#       - '&&'
+#       - 'docker'
+#       - 'cp'
+#       - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
+#       - 'pingdirectory-temp-container:/opt/staging/'
 
 
 # #Push the image  
