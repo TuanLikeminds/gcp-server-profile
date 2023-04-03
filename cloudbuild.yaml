@@ -40,6 +40,10 @@ steps:
   - 'cp'
   - '/workspace/gcp-server-profile/gcp-server-profile/pingdirectory/*'
   - 'pingdirectory-temp-container:/opt/staging/'
+  - '&&'
+  - 'docker commit pd-temp-container ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}--newwww'
+  - '&&'
+  - 'docker push ${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}--newwww'
   
 
 # - name: 'gcr.io/cloud-builders/docker'
