@@ -25,6 +25,13 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
 
+#
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['run','-d', 'pd-temp-container','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
+  volumes:
+  - name: cloud-build-ping
+    path: /shared
+
 
 
 
