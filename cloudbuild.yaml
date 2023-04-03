@@ -28,9 +28,9 @@ steps:
   
 - name: 'gcr.io/cloud-builders/git'
   args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/workspace']
-  volumes:
-      - name: 'pd-storage-volume'
-        path: '/workspace'
+  # volumes:
+  #     - name: 'pd-storage-volume'
+  #       path: '/workspace'
  
 # - name: 'gcr.io/cloud-builders/docker'
 #   entrypoint: 'bash'
@@ -65,9 +65,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['cp','/workspace/gcp-server-profile/pingdirectory/*', 'pd-temp-container:/opt/staging']
-  volumes:
-      - name: 'pd-storage-volume'
-        path: '/workspace'
+  
   #hello
   
 
