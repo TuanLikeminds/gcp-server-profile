@@ -98,7 +98,9 @@ steps:
 #   env:
 #   - 'CLOUDSDK_COMPUTE_ZONE=${_ZONE}'
 #   - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
-  
+volumes:
+  - name: 'my-volume'
+    driver: 'local'
 substitutions:
     #GCP Specific configuration. Please DON'T change anything
     _PROJECT: learn-gcp-with-mahesh
@@ -129,5 +131,7 @@ substitutions:
 
 options:
     substitution_option: 'ALLOW_LOOSE'
+
 volumes:
-- name: 'pd-storage-volume'
+  - name: 'my-volume'
+    driver: 'local'
