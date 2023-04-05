@@ -1,2 +1,6 @@
 #!/usr/bin/env
 echo Hello from the baseline server profile 183-run-setup.sh.post hook!
+echo We are applying the file permissions to the /opt/staging folder!
+
+chmod 777 /opt/staging
+echo Done applying the file permissions to the /opt/staging folder!
