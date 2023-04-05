@@ -44,7 +44,7 @@ steps:
 #     path: /shared
  
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['run','-d', '--name', 'pd-temp-container','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}','&&','-c','mkdir -p /tmp/server-profile/pingdirectory/']
+  args: ['run','-d', '--name', 'pd-temp-container','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
   id: "running the temp container and creating the serverprofile directory"
   volumes:
   - name: cloud-build-ping
@@ -81,7 +81,7 @@ substitutions:
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
-    _SERVER_PROFILE_RELEASE_TAG: V1.0.26
+    _SERVER_PROFILE_RELEASE_TAG: V1.0.28
 
 options:
     substitution_option: 'ALLOW_LOOSE'

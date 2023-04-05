@@ -8,7 +8,7 @@
 
 # shellcheck source=./pingcommon.lib.sh
 . "${HOOKS_DIR}/pingcommon.lib.sh"
-
+mkdir -p /tmp/server-profile/pingdirectory/
 chmod -R g+rwx,o+rwx /opt/staging
 chgrp -R root /opt/staging
 chmod -R g+rwx,o+rwx /opt/staging
