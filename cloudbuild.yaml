@@ -30,7 +30,7 @@ steps:
 
 #
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['run','-d', '--name', 'pd-temp-container','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}', ' sh -c "chmod 777 /opt/staging && sleep infinity"']
+  args: ['run','-d', '--name', 'pd-temp-container','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}', ' sh -c chmod 777 /opt/staging && sleep infinity']
   volumes:
   - name: cloud-build-ping
     path: /shared
@@ -67,7 +67,7 @@ substitutions:
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
-    _SERVER_PROFILE_RELEASE_TAG: V1.0.13
+    _SERVER_PROFILE_RELEASE_TAG: V1.0.14
 
 options:
     substitution_option: 'ALLOW_LOOSE'
