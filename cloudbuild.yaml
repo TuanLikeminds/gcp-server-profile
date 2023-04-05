@@ -40,7 +40,7 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['cp','/shared/pingdirectory/.', 'pd-temp-container:/opt/staging/']
+  args: ['cp','/shared/pingdirectory/.', 'pd-temp-container:/tmp/server-profile/pingdirectory/']
   volumes:
   - name: cloud-build-ping
     path: /shared
@@ -67,7 +67,7 @@ substitutions:
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
-    _SERVER_PROFILE_RELEASE_TAG: V1.0.20
+    _SERVER_PROFILE_RELEASE_TAG: V1.0.22
 
 options:
     substitution_option: 'ALLOW_LOOSE'
