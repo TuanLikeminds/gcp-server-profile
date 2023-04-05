@@ -7,6 +7,4 @@
 #
 
 # shellcheck source=./pingcommon.lib.sh
-. "${HOOKS_DIR}/pingcommon.lib.sh"
-
 chmod -R 777 /opt/staging
