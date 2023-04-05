@@ -7,8 +7,7 @@ steps:
   volumes:
   - name: cloud-build-ping
     path: /shared
-  labels:
-    - "Cloning the PingDirectory Server Profile git Repo"
+  id: "Cloning the PingDirectory Server Profile git Repo"
 
 - name: 'gcr.io/cloud-builders/git'
   entrypoint: 'ls'
