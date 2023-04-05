@@ -54,7 +54,7 @@ steps:
 
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['cp','/shared/pingdirectory/.', 'pd-temp-container:/tmp/server-profile/pingdirectory/']
+  args: ['cp','/shared/pingdirectory/', 'pd-temp-container:/opt/staging/']
   volumes:
   - name: cloud-build-ping
     path: /shared
