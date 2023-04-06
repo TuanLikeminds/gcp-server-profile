@@ -3,7 +3,7 @@ steps:
 
 #1. Pull the Server Profile from Github
 - name: 'gcr.io/cloud-builders/git'
-  args: ['clone','${_SERVER_PROFILE_GIT_REPOSITORY}','/shared']
+  args: ['clone', '--branch', '${_SERVER_PROFILE_RELEASE_TAG}', '${_SERVER_PROFILE_GIT_REPOSITORY}', '/shared']
   volumes:
   - name: cloud-build-ping
     path: /shared
@@ -81,7 +81,8 @@ substitutions:
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
-    _SERVER_PROFILE_RELEASE_TAG: V1.0.40
+    _SERVER_PROFILE_RELEASE_TAG: V-1.0.3
+    
 
 options:
     substitution_option: 'ALLOW_LOOSE'
