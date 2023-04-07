@@ -32,20 +32,21 @@ steps:
   - name: cloud-build-ping
     path: /shared
 
-#3. Copying the Server profile from /shared/pingdirectory/. to pd-temp-container:/opt/in/
+#4. Copying the Server profile from /shared/pingdirectory/. to pd-temp-container:/opt/in/
 - name: 'gcr.io/cloud-builders/docker'
   args: ['cp','/shared/pingdirectory/.', 'pd-temp-container:/opt/in/']
   volumes:
   - name: cloud-build-ping
     path: /shared
   id: "Copying the Server profile from /shared/pingdirectory/. to pd-temp-container:/opt/in/"
-#4. Commit Changes to the Image running in the temp container
+
+#5. Commit Changes to the Image running in the temp container
 - name: 'gcr.io/cloud-builders/docker'
   args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   id : "Commit Changes to the Image running in the temp container"
 
 
-#4. Push the customized image to the Artifact Registry 
+#6. Push the customized image to the Artifact Registry 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   id: "Pushing the customized image to the Artifact Registry"
@@ -57,18 +58,12 @@ substitutions:
     # DESIRED PingDirectory Docker Image Configurations
     _PINGDIRECTORY_DOCKER_IMAGE_TAG: 2303-9.2.0.0
     
-
     # GCR CONTAINER IMAGE REPOSITORY
     _GCR_REPOSITORY_URL: us-central1-docker.pkg.dev/pingdirectory-358917/likeminds-docker-repository
-    
-
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
-
-    _SERVER_PROFILE_RELEASE_TAG: V-1.0.5
+    _SERVER_PROFILE_RELEASE_TAG: V-1.0.6
     
-
-
 options:
     substitution_option: 'ALLOW_LOOSE'
