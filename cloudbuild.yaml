@@ -18,13 +18,13 @@ steps:
 
 
 #2. Pull the Desired PingDirectory Docker image from Dockerhub 
-
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ['pull','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
   id: "Pull the Desired PingDirectory Docker image from Dockerhub"
  
  #3. Running the PingDirectory image in a Temp Container
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['run','-d', '--name', 'pd-temp-container','pingidentity/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}']
   id: "Running the PingDirectory image in a Temp Container"
@@ -33,6 +33,7 @@ steps:
     path: /shared
 
 #4. Copying the Server profile from /shared/pingdirectory/. to pd-temp-container:/opt/in/
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['cp','/shared/pingdirectory/.', 'pd-temp-container:/opt/in/']
   volumes:
@@ -41,12 +42,14 @@ steps:
   id: "Copying the Server profile from /shared/pingdirectory/. to pd-temp-container:/opt/in/"
 
 #5. Commit Changes to the Image running in the temp container
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['commit', 'pd-temp-container', '${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   id : "Commit Changes to the Image running in the temp container"
 
 
 #6. Push the customized image to the Artifact Registry 
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push','${_GCR_REPOSITORY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   id: "Pushing the customized image to the Artifact Registry"
