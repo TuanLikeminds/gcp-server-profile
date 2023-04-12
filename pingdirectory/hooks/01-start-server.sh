@@ -10,7 +10,8 @@
 # shellcheck source=./pingcommon.lib.sh
 . "${HOOKS_DIR}/pingcommon.lib.sh"
 
-run_hook "02-get-remote-server-profile.sh"
+#We will be injecting server profiles
+# run_hook "02-get-remote-server-profile.sh"
 
 # Looks at all the variables, and determines if the server is ready to run and creates
 # a RUN_PLAN
