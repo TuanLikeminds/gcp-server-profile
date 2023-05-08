@@ -55,6 +55,8 @@ export BASE_CLASS="dcObject"
 export BASE_ATTRIBUTE="dc"
 export BASE_VALUE="example"
 export POD_HOSTNAME='${HOST_NAME}'
+export SEED_LDAPS_PORT="1636"
+export SEED_HOSTNAME="likeminds-pingdirectory-0"
 # export VERBOSE="true"
 
 
