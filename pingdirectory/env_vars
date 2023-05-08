@@ -12,28 +12,50 @@
 #   export NAME=${NAME:=myDefaultValue}  # Sets to string of "myDefaultValue"
 #   export NAME=${NAME:-OTHER_VAR}       # Sets ot value of OTHER_VAR variable
 #
-export SCOPE="kubernetes"
+export PD_CONSOLE_PRIVATE_HOSTNAME="likeminds-pingdataconsole"
+export PD_CONSOLE_PRIVATE_PORT_HTTPS="8443"
+export PD_CONSOLE_PUBLIC_HOSTNAME="localhost"
+export PD_CONSOLE_PUBLIC_PORT_HTTPS="8443"
+export PD_DELEGATOR_PRIVATE_HOSTNAME="likeminds-pingdelegator"
+export PD_DELEGATOR_PRIVATE_PORT_HTTPS="1443"
+export PD_DELEGATOR_PUBLIC_HOSTNAME="delegator.likemindsdemo.com"
+export PD_DELEGATOR_PUBLIC_PORT_HTTPS="1443"
+export PD_ENGINE_PRIVATE_HOSTNAME="likeminds-pingdirectory"
+export PD_ENGINE_PRIVATE_PORT_HTTPS="1443"
+export PD_ENGINE_PRIVATE_PORT_LDAP="1389"
+export PD_ENGINE_PRIVATE_PORT_LDAPS="1636"
+export PD_ENGINE_PUBLIC_HOSTNAME="directory.likemindsdemo.com"
+export PD_ENGINE_PUBLIC_PORT_HTTPS="1443"
+export PDP_ENGINE_PRIVATE_HOSTNAME="likeminds-pingdirectoryproxy"
+export PDP_ENGINE_PRIVATE_PORT_HTTPS="443"
+export PDP_ENGINE_PUBLIC_HOSTNAME="dataproxy.likemindsdemo.com"
+export PDP_ENGINE_PUBLIC_PORT_HTTPS="1443"
+export PDS_ENGINE_PRIVATE_HOSTNAME="likeminds-pingdatasync"
+export PDS_ENGINE_PRIVATE_PORT_HTTPS="443"
+export PDS_ENGINE_PUBLIC_HOSTNAME="localhost"
+export PDS_ENGINE_PUBLIC_PORT_HTTPS="1443"
+export PF_ADMIN_PRIVATE_HOSTNAME="likeminds-pingfederate-admin"
+export PF_ADMIN_PRIVATE_PORT_HTTPS="9999"
+export PF_ADMIN_PUBLIC_HOSTNAME="pf-admin.likemindsdemo.com"
+export PF_ADMIN_PUBLIC_PORT_HTTPS="9999"
+export PF_ENGINE_PRIVATE_HOSTNAME="likeminds-pingfederate"
+export PF_ENGINE_PRIVATE_PORT_HTTPS="1443"
+export PF_ENGINE_PUBLIC_HOSTNAME="sso.likemindsdemo.com"
+export PF_ENGINE_PUBLIC_PORT_HTTPS="1443"
+export PF_ENGINE_PUBLIC_PORT="1443"
+export PING_IDENTITY_ACCEPT_EULA="YES"
 export ORCHESTRATION_TYPE="KUBERNETES"
- 
-# export PD_DELEGATOR_PUBLIC_HOSTNAME=${PD_DELEGATOR_PUBLIC_HOSTNAME:=localhost}
-# export PD_DELEGATOR_PUBLIC_PORT_HTTPS=${PD_DELEGATOR_PUBLIC_PORT_HTTPS:=6443}
-# export PF_ENGINE_PRIVATE_HOSTNAME=${PF_ENGINE_PRIVATE_HOSTNAME:=pingfederate}
-# export PF_ENGINE_PUBLIC_HOSTNAME=${PF_ENGINE_PUBLIC_HOSTNAME:=localhost}
-# export PF_ENGINE_PUBLIC_PORT_HTTPS=${PF_ENGINE_PUBLIC_PORT_HTTPS:=9031}
-# export PF_ENGINE_PRIVATE_PORT_HTTPS=${PF_ENGINE_PRIVATE_PORT_HTTPS:=9031}
-# # Testing out setting env vars here instead of the configmap
-# export HTTPS_PORT="1443"
-# export K8S_STATEFUL_SET_NAME="likeminds-pingdirectory"
-# export K8S_STATEFUL_SET_SERVICE_NAME="likeminds-pingdirectory-cluster"
-# export LDAP_PORT="1389"
-# export LDAPS_PORT="1636"
-# export ORCHESTRATION_TYPE="KUBERNETES"
-# export USER_BASE_DN="dc=example,dc=com"
-# export PING_IDENTITY_ACCEPT_EULA="YES"
-# export BASE_CLASS="dcObject"
-# export BASE_ATTRIBUTE="dc"
-# export BASE_VALUE="example"
-# export VERBOSE="true"
+export HTTPS_PORT="1443"
+export K8S_STATEFUL_SET_NAME="likeminds-pingdirectory"
+export K8S_STATEFUL_SET_SERVICE_NAME="likeminds-pingdirectory-cluster"
+export LDAP_PORT="1389"
+export LDAPS_PORT="1636"
+export USER_BASE_DN="dc=example,dc=com"
+export BASE_CLASS="dcObject"
+export BASE_ATTRIBUTE="dc"
+export BASE_VALUE="example"
+export VERBOSE="true"
+
 
 #
 # Matches the certificate alias found in config/keystore.p12
