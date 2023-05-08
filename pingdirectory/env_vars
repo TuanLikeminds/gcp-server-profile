@@ -59,6 +59,7 @@ export SEED_LDAPS_PORT="1636"
 export SEED_HOSTNAME="likeminds-pingdirectory-0"
 export _seedInstanceName="likeminds-pingdirectory-0.likeminds-pingdirectory-cluster"
 export _podInstanceName='${INSTANCE_NAME}'
+export _seedReplicationPort="8989"
 # export VERBOSE="true"
 
 
