@@ -65,8 +65,8 @@ substitutions:
     _ARTIFACT_REGISTRY_URL: asia-east1-docker.pkg.dev/pingdirectory-358917/likeminds-docker-repository
 
     # ServerProfile Repository Specific Variables
-    _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile
-    _SERVER_PROFILE_RELEASE_TAG: V-1.0.23
+    _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile.git
+    _SERVER_PROFILE_RELEASE_TAG: V-1.0.24
   
 options:
     substitution_option: 'ALLOW_LOOSE'
