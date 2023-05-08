@@ -54,6 +54,7 @@ export USER_BASE_DN="dc=example,dc=com"
 export BASE_CLASS="dcObject"
 export BASE_ATTRIBUTE="dc"
 export BASE_VALUE="example"
+export POD_HOSTNAME='${HOST_NAME}'
 # export VERBOSE="true"
 
 
