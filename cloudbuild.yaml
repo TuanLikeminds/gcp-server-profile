@@ -1,6 +1,5 @@
 steps:
 
-
 #1. Pull the Server Profile from Github
 - name: 'gcr.io/cloud-builders/git'
   args: ['clone', '--branch', '${_SERVER_PROFILE_RELEASE_TAG}', '${_SERVER_PROFILE_GIT_REPOSITORY}', '/shared']
