@@ -62,7 +62,7 @@ substitutions:
 
     # ServerProfile Repository Specific Variables
     _SERVER_PROFILE_GIT_REPOSITORY: https://github.com/TuanLikeminds/gcp-server-profile.git
-    _SERVER_PROFILE_RELEASE_TAG: V-1.0.50
+    _SERVER_PROFILE_RELEASE_TAG: V-1.0.52
   
 options:
     substitution_option: 'ALLOW_LOOSE'
