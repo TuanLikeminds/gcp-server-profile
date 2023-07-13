@@ -45,7 +45,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['commit', 'pd-temp-container', '${_ARTIFACT_REGISTRY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
-  id : "Commit Changes to the Image running in the temp container"
+  id: "Commit Changes to the Image running in the temp container"
 
 
 #6. Push the customized image to the Artifact Registry 
