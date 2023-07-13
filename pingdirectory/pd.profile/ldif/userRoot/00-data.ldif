@@ -71,6 +71,16 @@ cn: Vikram
 sn: Chandrasekaran
 userPassword: 2FederateM0re
 
+dn: uid=kailash,ou=serviceAccounts,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: kailash
+cn: kailash
+sn: alageshan
+userPassword: 2FederateM0re
+
 dn: cn=delegatedadmin,ou=Groups,${USER_BASE_DN}
 objectClass: groupOfUniqueNames
 objectClass: top
