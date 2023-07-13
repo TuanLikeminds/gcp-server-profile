@@ -55,7 +55,7 @@ steps:
   id: "Pushing the customized image to the Artifact Registry"
 
 
-n
+
 substitutions:
      
     # DESIRED PingDirectory Docker Image Configurations
