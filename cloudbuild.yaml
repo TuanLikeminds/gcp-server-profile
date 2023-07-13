@@ -54,10 +54,7 @@ steps:
   args: ['push','${_ARTIFACT_REGISTRY_URL}/pingdirectory:${_PINGDIRECTORY_DOCKER_IMAGE_TAG}-${_SERVER_PROFILE_RELEASE_TAG}']
   id: "Pushing the customized image to the Artifact Registry"
 
-
-
-substitutions:
-     
+substitutions:     
     # DESIRED PingDirectory Docker Image Configurations
     _PINGDIRECTORY_DOCKER_IMAGE_TAG: 2303-9.2.0.0
     
